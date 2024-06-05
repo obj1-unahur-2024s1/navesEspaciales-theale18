@@ -17,15 +17,27 @@ class naveEspacial{
 
 	method acercarseUnPocoAlSol() { direccion = 10.min(direccion + 1) }
 	method alejarseUnPocoDelSol() { direccion = 10.max(direccion - 1) }
+	method cargarCombustible(cuanto) { combustible += cuanto }
+	method descargarCombustible(cuanto) { combustible = 0.max(combustible - cuanto }
+	method prepararViaje() { 
+		self.cargarCombustible(30000)
+		self.acelerar(5000)
+	}
+	method estaTranquila() {
+		return combustible >= 4000 and velocidad <= 12000 and self.adicionalTranquilidad()
+	}
+	method adicionalTranquilidad()
 }
 class naveBaliza inherits naveEspacial {
 	var colorBaliza
 
 	method cambiarColorBaliza(colorNuevo) { colorBaliza = colorNuevo }
-	method prepararViaje() {
+	override method prepararViaje() {
+		
 		self.cambiarColorDeBaliza("verde")
 		self.ponerseParaleloAlSol()
 	}
+	override method adicionalTranquilidad() = colorBaliza != "rojo"
 }
 class naveDePasajeros inherits naveEspacial {
 	const cantidadDePasajeros
@@ -40,6 +52,11 @@ class naveDePasajeros inherits naveEspacial {
 		self.cargarComida( cantidadDePasajeros*4 )
 		self.cargarBebida( cantidadDePasajeros*6 )
 	}
+}
+class naveHospital inherits naveDePasajeros {
+	var quirofanosPreparados = false
+	method quirofanosPreparados() { quirofanosPreparados = true }
+	method noPrepararQuirofanos() { quirofanosPreparados = false }
 }
 class naveDeCombate inherits naveEspacial { 
 	var estaVisible = false
@@ -62,6 +79,7 @@ class naveDeCombate inherits naveEspacial {
 //			     mensajes.all( { m=>m.size()<=30 })
 	method emitioMensaje(mensaje) = mensaje.contains(mensaje)
 	method prepararViaje() {
+		super()
 		self.ponerseVisible()
 		self.replegarMisiles()
 		self.acelerar(15000)
