@@ -5,7 +5,7 @@ class naveEspacial{
 	method acelerar(cuanto) {
 		velocidad = 100000.min(velocidad + cuanto)
 //	el valor min entre 100000 y el resul = velocidad + cuanto
-	//	velocidad = (velocidad + cuanto).min(100000)
+//		velocidad = (velocidad + cuanto).min(100000)
 	}
 	method desacelerar(cuanto) { 
 		velocidad = 0.max(velocidad - cuanto)
